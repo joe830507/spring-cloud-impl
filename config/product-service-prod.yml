@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:mysql://prod-db:3306/product_db_prod
+    username: ${DB_USER} # 使用環境變量
+    password: ${DB_PASS}
+logging:
+  level:
+    com.example: INFO
