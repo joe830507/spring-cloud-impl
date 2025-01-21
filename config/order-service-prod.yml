@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:mysql://prod-db:3306/order_db_prod
+    username: ${DB_USER}
+    password: ${DB_PASS}
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: BASIC

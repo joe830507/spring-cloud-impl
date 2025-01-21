@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/order_db_dev
+    username: dev_user
+    password: dev_pass
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: FULL
