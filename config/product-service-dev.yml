@@ -3,6 +3,8 @@ spring:
     url: jdbc:mysql://localhost:3306/product_db_dev
     username: dev_user
     password: dev_pass
+  config:
+    import: optional:configserver:http://localhost:8888
 logging:
   level:
     com.example: DEBUG
