@@ -15,16 +15,16 @@ spring:
           uri: lb://order-service
           predicates:
             - Path=/orders/**
-          filters:
-            - name: RequestRateLimiter
-              args:
-                redis-rate-limiter.replenishRate: 10
-                redis-rate-limiter.burstCapacity: 20
-      default-filters:
-        - name: CircuitBreaker
-          args:
-            name: defaultCircuitBreaker
-            fallbackUri: forward:/fallback
+      #     filters:
+      #       - name: RequestRateLimiter
+      #         args:
+      #           redis-rate-limiter.replenishRate: 10
+      #           redis-rate-limiter.burstCapacity: 20
+      # default-filters:
+      #   - name: CircuitBreaker
+      #     args:
+      #       name: defaultCircuitBreaker
+      #       fallbackUri: forward:/fallback
 eureka:
   instance:
     hostname: localhost
