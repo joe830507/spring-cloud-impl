@@ -6,11 +6,11 @@ spring:
           uri: lb://product-service
           predicates:
             - Path=/products/**
-          filters:
-            - name: RequestRateLimiter
-              args:
-                redis-rate-limiter.replenishRate: 10
-                redis-rate-limiter.burstCapacity: 20
+          # filters:
+          #   - name: RequestRateLimiter
+          #     args:
+          #       redis-rate-limiter.replenishRate: 10
+          #       redis-rate-limiter.burstCapacity: 20
         - id: order-service
           uri: lb://order-service
           predicates:
