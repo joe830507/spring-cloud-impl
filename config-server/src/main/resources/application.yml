@@ -2,11 +2,15 @@ server:
   port: 8888
 
 spring:
+  profiles:
+    active: dev
   cloud:
     config:
       server:
         git:
           uri: https://github.com/joe830507/spring-cloud-impl
+          username: ${GIT_USERNAME}
+          password: ${GIT_TOKEN}
           search-paths: config
           default-label: dev
 
