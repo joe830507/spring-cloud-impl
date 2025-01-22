@@ -25,3 +25,6 @@ spring:
           args:
             name: defaultCircuitBreaker
             fallbackUri: forward:/fallback
+eureka:
+  instance:
+    hostname: localhost
