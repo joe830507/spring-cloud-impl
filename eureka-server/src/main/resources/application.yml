@@ -1,7 +1,15 @@
 server:
   port: 8761
-
+spring:
+  application:
+    name: eureka-server
 eureka:
+  instance:
+    hostname: localhost
   client:
-    registerWithEureka: false
-    fetchRegistry: false
+    registerWithEureka: false # 不要註冊自己
+    fetchRegistry: false # 不要從Eureka Server獲取註冊表
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    enable-self-preservation: false # 開發環境可以關閉自我保護機制

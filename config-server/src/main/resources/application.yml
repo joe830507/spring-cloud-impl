@@ -9,8 +9,8 @@ spring:
       server:
         git:
           uri: https://github.com/joe830507/spring-cloud-impl
-          username: ${GIT_USERNAME}
-          password: ${GIT_TOKEN}
+          username: joe830507
+          password: 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
           search-paths: config
           default-label: dev
 
