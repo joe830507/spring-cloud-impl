@@ -10,11 +10,14 @@ spring:
           uri: lb://product-service
           predicates:
             - Path=/products/**
+          filters:
+            - JwtAuthentication
         - id: order-service
           uri: lb://order-service
           predicates:
             - Path=/orders/**
-
+          filters:
+            - JwtAuthentication
 server:
   port: 8080
 
