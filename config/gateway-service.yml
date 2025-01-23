@@ -7,13 +7,13 @@ spring:
           predicates:
             - Path=/products/**
           filters:
-            - name: JwtAuthentication
+            - name: JwtAuthenticationFilter
         - id: order-service
           uri: lb://order-service
           predicates:
             - Path=/orders/**
           filters:
-            - name: JwtAuthentication
+            - name: JwtAuthenticationFilter
 
   tracing:
     sampling:
