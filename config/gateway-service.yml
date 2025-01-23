@@ -42,6 +42,7 @@ logging:
   level:
     org.springframework.security: DEBUG
     org.springframework.cloud.gateway: DEBUG
+    com.example.security: DEBUG
   pattern:
     level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
 
