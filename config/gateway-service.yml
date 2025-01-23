@@ -7,13 +7,13 @@ spring:
           predicates:
             - Path=/products/**
           filters:
-            - JwtAuthenticationGatewayFilterFactory
+            - JwtAuthentication
         - id: order-service
           uri: lb://order-service
           predicates:
             - Path=/orders/**
           filters:
-            - JwtAuthenticationGatewayFilterFactory
+            - JwtAuthentication
   tracing:
     sampling:
       probability: 1.0 # 開發環境可以設置為1.0，生產環境建議設置較小的值
