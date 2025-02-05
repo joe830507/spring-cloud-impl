@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.stereotype.Component;
+import io.jsonwebtoken.Claims;
 import jakarta.annotation.PostConstruct;
 import reactor.core.publisher.Mono;
 
@@ -40,10 +41,11 @@ public class JwtAuthenticationGatewayFilterFactory
             }
 
             String token = authHeader.substring(7);
-            // if (!jwtUtil.validateToken(token)) {
-            // return Mono.fromRunnable(() ->
-            // exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED));
-            // }
+            Claims claims = jwtUtil.validateToken(token);
+            if (claims.isEmpty()) {
+                return Mono.fromRunnable(
+                        () -> exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED));
+            }
 
             String username = jwtUtil.extractUsername(token);
             UsernamePasswordAuthenticationToken authentication =
