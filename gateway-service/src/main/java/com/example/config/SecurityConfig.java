@@ -14,34 +14,37 @@ import org.springframework.security.web.server.context.NoOpServerSecurityContext
 @EnableWebFluxSecurity
 public class SecurityConfig {
 
-    @Bean
-    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-        return http
-                .csrf(ServerHttpSecurity.CsrfSpec::disable)
-                .cors(ServerHttpSecurity.CorsSpec::disable)
-                .authorizeExchange(exchanges -> exchanges
-                        .pathMatchers("/auth/**").permitAll()
-                        .pathMatchers("/orders/**").authenticated() // 明確指定
-                        .pathMatchers("/products/**").authenticated() // 明確指定
-                        .anyExchange().authenticated())
-                .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
-                .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable) // 新增這行
-                .formLogin(ServerHttpSecurity.FormLoginSpec::disable) // 新增這行
-                .oauth2ResourceServer(oauth2 -> oauth2
-                        .jwt(jwt -> jwt
-                                .jwtAuthenticationConverter(
-                                        new ReactiveJwtAuthenticationConverterAdapter(jwtAuthenticationConverter()))))
-                .build();
-    }
+        @Bean
+        public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
+                return http.csrf(ServerHttpSecurity.CsrfSpec::disable)
+                                .cors(ServerHttpSecurity.CorsSpec::disable)
+                                .authorizeExchange(exchanges -> exchanges.pathMatchers("/auth/**")
+                                                .permitAll().pathMatchers("/orders/**")
+                                                .authenticated() // 明確指定
+                                                .pathMatchers("/products/**").authenticated() // 明確指定
+                                                .anyExchange().authenticated())
+                                .securityContextRepository(
+                                                NoOpServerSecurityContextRepository.getInstance())
+                                .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable) // 新增這行
+                                .formLogin(ServerHttpSecurity.FormLoginSpec::disable) // 新增這行
+                                .oauth2ResourceServer(oauth2 -> oauth2
+                                                .jwt(jwt -> jwt.jwtAuthenticationConverter(
+                                                                new ReactiveJwtAuthenticationConverterAdapter(
+                                                                                jwtAuthenticationConverter()))))
+                                .build();
+        }
 
-    @Bean
-    public JwtAuthenticationConverter jwtAuthenticationConverter() {
-        JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
-        grantedAuthoritiesConverter.setAuthoritiesClaimName("roles");
-        grantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
+        @Bean
+        public JwtAuthenticationConverter jwtAuthenticationConverter() {
+                JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter =
+                                new JwtGrantedAuthoritiesConverter();
+                grantedAuthoritiesConverter.setAuthoritiesClaimName("roles");
+                grantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
 
-        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
-        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
-        return jwtAuthenticationConverter;
-    }
+                JwtAuthenticationConverter jwtAuthenticationConverter =
+                                new JwtAuthenticationConverter();
+                jwtAuthenticationConverter
+                                .setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
+                return jwtAuthenticationConverter;
+        }
 }
