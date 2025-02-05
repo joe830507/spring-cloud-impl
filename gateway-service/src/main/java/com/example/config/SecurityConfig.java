@@ -19,10 +19,7 @@ public class SecurityConfig {
                 return http.csrf(ServerHttpSecurity.CsrfSpec::disable)
                                 .cors(ServerHttpSecurity.CorsSpec::disable)
                                 .authorizeExchange(exchanges -> exchanges.pathMatchers("/auth/**")
-                                                .permitAll().pathMatchers("/orders/**")
-                                                .authenticated() // 明確指定
-                                                .pathMatchers("/products/**").authenticated() // 明確指定
-                                                .anyExchange().authenticated())
+                                                .permitAll().anyExchange().authenticated())
                                 .securityContextRepository(
                                                 NoOpServerSecurityContextRepository.getInstance())
                                 .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable) // 新增這行
