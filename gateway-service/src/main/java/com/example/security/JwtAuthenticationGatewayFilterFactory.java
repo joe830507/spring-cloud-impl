@@ -42,6 +42,7 @@ public class JwtAuthenticationGatewayFilterFactory
 
             String token = authHeader.substring(7);
             Claims claims = jwtUtil.validateToken(token);
+            claims.forEach((k, v) -> log.debug("Claim: {} {}", k, v));
             if (claims.isEmpty()) {
                 return Mono.fromRunnable(
                         () -> exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED));
@@ -65,6 +66,5 @@ public class JwtAuthenticationGatewayFilterFactory
     }
 
     public static class Config {
-        // 配置屬性
     }
 }

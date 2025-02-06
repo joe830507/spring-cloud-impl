@@ -14,7 +14,7 @@ spring:
     sampling:
       probability: 1.0 # 開發環境可以設置為1.0，生產環境建議設置較小的值
     propagation:
-      type: w3c
+      type: w3c # 使用 W3C Trace Context 標準格式來傳遞追蹤資訊
   zipkin:
     base-url: http://localhost:9411
     sender:
@@ -22,14 +22,14 @@ spring:
 management:
   tracing:
     sampling:
-      probability: 1.0
+      probability: 1.0 # 追蹤取樣率，1.0表示100%收集所有請求
   zipkin:
     tracing:
-      endpoint: http://localhost:9411/api/v2/spans
+      endpoint: http://localhost:9411/api/v2/spans # Zipkin服務器端點，用於收集追蹤數據
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: "*" # 開放所有Actuator端點，包含health, info, metrics等
   metrics:
     tags:
       application: ${spring.application.name}
