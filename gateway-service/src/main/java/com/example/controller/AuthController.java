@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.record.AuthResponse;
 import com.example.record.LoginRequest;
-import com.example.security.JwtUtil;
+import com.example.utilities.JwtUtil;
 import reactor.core.publisher.Mono;
 
 @RestController
