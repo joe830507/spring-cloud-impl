@@ -21,11 +21,12 @@ public class SecurityConfig {
         @Bean
         public CorsConfigurationSource corsConfigurationSource() {
                 CorsConfiguration configuration = new CorsConfiguration();
+                // If you allow credentials, you can't use wildcards.
                 configuration.setAllowedOrigins(Arrays.asList("*"));
                 configuration.setAllowedMethods(
                                 Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                 configuration.setAllowedHeaders(Arrays.asList("*"));
-                configuration.setAllowCredentials(true);
+                configuration.setAllowCredentials(false);
 
                 UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
                 source.registerCorsConfiguration("/**", configuration);
@@ -35,7 +36,6 @@ public class SecurityConfig {
         @Bean
         public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
                 return http.csrf(ServerHttpSecurity.CsrfSpec::disable)
-                                .cors(ServerHttpSecurity.CorsSpec::disable)
                                 .authorizeExchange(exchanges -> exchanges.pathMatchers("/auth/**")
                                                 .permitAll().anyExchange().authenticated())
                                 .securityContextRepository(
