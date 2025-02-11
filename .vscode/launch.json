@@ -1,0 +1,74 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-ConfigServerApplication<config-server>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.example.ConfigServerApplication",
+      "projectName": "config-server",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env",
+      "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=1353 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=config-server",
+      "preLaunchTask": "Wait for Eureka"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-EurekaServerApplication<eureka-server>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.example.EurekaServerApplication",
+      "projectName": "eureka-server",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env",
+      "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=1902 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=eureka-server"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-ProductServiceApplication<product-service>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.example.ProductServiceApplication",
+      "projectName": "product-service",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env",
+      "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=4776 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=product-service",
+      "preLaunchTask": "Wait for Config"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-OrderServiceApplication<order-service>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.example.OrderServiceApplication",
+      "projectName": "order-service",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env",
+      "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=9951 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=order-service",
+      "preLaunchTask": "Wait for Config"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-GatewayServiceApplication<gateway-service>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.example.GatewayServiceApplication",
+      "projectName": "gateway-service",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env",
+      "preLaunchTask": "Wait for Config"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Launch All Services",
+      "configurations": [
+        "Spring Boot-EurekaServerApplication<eureka-server>",
+        "Spring Boot-ConfigServerApplication<config-server>",
+        "Spring Boot-ProductServiceApplication<product-service>",
+        "Spring Boot-OrderServiceApplication<order-service>",
+        "Spring Boot-GatewayServiceApplication<gateway-service>"
+      ]
+    }
+  ]
+}

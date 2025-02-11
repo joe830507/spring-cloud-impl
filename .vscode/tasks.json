@@ -6,9 +6,7 @@
       "dependsOrder": "sequence",
       "dependsOn": [
         "Start Eureka Server",
-        "Waitting Eureka Server",
         "Start Config Server",
-        "Waitting Config Server",
         "Starting Others"
       ],
       "group": {
@@ -36,19 +34,9 @@
         ],
         "background": {
           "activeOnStart": true,
-          "beginsPattern": "^.*Starting Eureka Server.*$",
-          "endsPattern": "^.*Started Eureka Server.*$"
+          "beginsPattern": "^.*Starting.*$",
+          "endsPattern": "^.*Started.*$"
         }
-      }
-    },
-    {
-      "label": "Waitting Eureka Server",
-      "type": "shell",
-      "command": "sleep",
-      "args": ["5"],
-      "windows": {
-        "command": "timeout",
-        "args": ["5"]
       }
     },
     {
@@ -74,16 +62,6 @@
           "beginsPattern": "^.*Starting.*$",
           "endsPattern": "^.*Started.*$"
         }
-      }
-    },
-    {
-      "label": "Waitting Config Server",
-      "type": "shell",
-      "command": "sleep",
-      "args": ["5"],
-      "windows": {
-        "command": "timeout",
-        "args": ["5"]
       }
     },
     {
@@ -168,6 +146,33 @@
           "beginsPattern": "^.*Starting.*$",
           "endsPattern": "^.*Started.*$"
         }
+      }
+    },
+    {
+      "label": "Wait for Eureka",
+      "type": "shell",
+      "command": "sleep",
+      "args": ["5"],
+      "windows": {
+        "command": "timeout",
+        "args": ["5"]
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Wait for Config",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-File",
+        "${workspaceFolder}/.vscode/wait-for-config-server.ps1"
+      ],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
       }
     }
   ]
