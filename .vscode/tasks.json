@@ -1,0 +1,174 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start All Services",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Start Eureka Server",
+        "Waitting Eureka Server",
+        "Start Config Server",
+        "Waitting Config Server",
+        "Starting Others"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Start Eureka Server",
+      "type": "shell",
+      "command": "./mvnw",
+      "args": ["spring-boot:run"],
+      "options": {
+        "cwd": "${workspaceFolder}/eureka-server"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": [
+          {
+            "regexp": ".",
+            "file": 1,
+            "location": 2,
+            "message": 3
+          }
+        ],
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^.*Starting Eureka Server.*$",
+          "endsPattern": "^.*Started Eureka Server.*$"
+        }
+      }
+    },
+    {
+      "label": "Waitting Eureka Server",
+      "type": "shell",
+      "command": "sleep",
+      "args": ["5"],
+      "windows": {
+        "command": "timeout",
+        "args": ["5"]
+      }
+    },
+    {
+      "label": "Start Config Server",
+      "type": "shell",
+      "command": "./mvnw",
+      "args": ["spring-boot:run"],
+      "options": {
+        "cwd": "${workspaceFolder}/config-server"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": [
+          {
+            "regexp": ".",
+            "file": 1,
+            "location": 2,
+            "message": 3
+          }
+        ],
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^.*Starting.*$",
+          "endsPattern": "^.*Started.*$"
+        }
+      }
+    },
+    {
+      "label": "Waitting Config Server",
+      "type": "shell",
+      "command": "sleep",
+      "args": ["5"],
+      "windows": {
+        "command": "timeout",
+        "args": ["5"]
+      }
+    },
+    {
+      "label": "Starting Others",
+      "dependsOrder": "parallel",
+      "dependsOn": [
+        "Start Order Service",
+        "Start Product Service",
+        "Start Gateway Service"
+      ]
+    },
+    {
+      "label": "Start Order Service",
+      "type": "shell",
+      "command": "./mvnw",
+      "args": ["spring-boot:run"],
+      "options": {
+        "cwd": "${workspaceFolder}/order-service"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": [
+          {
+            "regexp": ".",
+            "file": 1,
+            "location": 2,
+            "message": 3
+          }
+        ],
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^.*Starting.*$",
+          "endsPattern": "^.*Started.*$"
+        }
+      }
+    },
+    {
+      "label": "Start Product Service",
+      "type": "shell",
+      "command": "./mvnw",
+      "args": ["spring-boot:run"],
+      "options": {
+        "cwd": "${workspaceFolder}/product-service"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": [
+          {
+            "regexp": ".",
+            "file": 1,
+            "location": 2,
+            "message": 3
+          }
+        ],
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^.*Starting.*$",
+          "endsPattern": "^.*Started.*$"
+        }
+      }
+    },
+    {
+      "label": "Start Gateway Service",
+      "type": "shell",
+      "command": "./mvnw",
+      "args": ["spring-boot:run"],
+      "options": {
+        "cwd": "${workspaceFolder}/gateway-service"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": [
+          {
+            "regexp": ".",
+            "file": 1,
+            "location": 2,
+            "message": 3
+          }
+        ],
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^.*Starting.*$",
+          "endsPattern": "^.*Started.*$"
+        }
+      }
+    }
+  ]
+}
