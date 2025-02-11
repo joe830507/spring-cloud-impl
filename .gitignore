@@ -23,7 +23,9 @@
 hs_err_pid*
 replay_pid*
 **/.vscode/*
+**/target/*
+
+# included files
 !/.vscode/tasks.json
 !/.vscode/launch.json
 !/.vscode/wait-for-config-server.ps1
-**/target/*
