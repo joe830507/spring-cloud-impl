@@ -1,6 +1,6 @@
 spring:
-  application:
-    name: common-config
+  profiles:
+    active: dev
 management:
   endpoints:
     web:
