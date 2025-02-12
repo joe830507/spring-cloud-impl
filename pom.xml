@@ -11,9 +11,10 @@
     <modules>
         <module>eureka-server</module>
         <module>config-server</module>
+        <module>gateway-service</module>
         <module>product-service</module>
         <module>order-service</module>
-        <module>gateway-service</module>
+        <module>employee-service</module>
     </modules>
 
     <parent>
